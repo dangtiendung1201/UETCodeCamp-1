@@ -2,17 +2,19 @@ import express from "express";
 import noteRoute from "./api/routes/note";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 (async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect("mongodb://0.0.0.0:27017/todo-list");
     console.log("Connect to mongoose is successful!");
   } catch (error) {
     console.log("Caught! Cannot connect to mongodb: ", error);
